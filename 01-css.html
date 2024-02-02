@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page 5 - CSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        html {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            background: #fffff8;
+            font-size: large;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        img,
+        p {
+            align-self: center;
+        }
+
+        h1,
+        h2 {
+            line-height: 1.2;
+        }
+
+        p {
+            line-height: 1.6;
+            max-width: 80ch;
+        }
+
+        img {
+            width: 100%;
+            max-width: 480px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        CSS
+    </h1>
+    <img title="Roses in a vase." alt="Images of roses in a vase." src="rose.jpg" width="240px">
+    <p>
+        You use CSS for styling a web page.
+    </p>
+
+    <p>
+        You can see how a tiny amount of CSS greatly improves the document, by
+        toggling CSS off in developer tools.
+    </p>
+
+    <p>
+        CSS can be included in a page using the style tag, or using external
+        style sheets. It can also be inline with the html, but don't do that,
+        it will make your code messy.
+    </p>
+
+    <h2>Centering content</h2>
+
+    <p>
+        In this page, I want the main heading (h1) and image to be centered with
+        the page, and sub heading (h2) to be left aligned with the rest of
+        the other paragraphs.
+    </p>
+
+    <p>
+        To do this, I set display mode flex for html, flex-direction to column,
+        and align-items center. This centers the body, and puts all the
+        content at the start (left) of the body.
+    </p>
+
+    <p>
+        Then, I set the display mode flex for body, flex-direction to column,
+        and align-self to center for h1, img and p tags.
+    </p>
+
+    <p>
+        The <code>align-items: center</code> rule aligns the items such that
+        they align perfectly to the center of the cross axis of the flex
+        container, in turn squishing all the elements inside it to their
+        default/set width.
+        Without setting <code>align-items: center</code>, the body would not
+        be squished to the center (body will span entire page), making the
+        sub-heading appear at the left of the page (and not left of body).
+    </p>
+
+    <p>
+        Setting max-width on the flex items to 80ch wraps the long lines to 80
+        characters per line and keeps the content readable.
+    </p>
+
+    <h2>Line heights</h2>
+    <p>
+        Setting line-height to 1.6 lets the text breathe, and headings must be
+        tighter, so for headings, line-height of 1.2 looks better.
+    </p>
+
+    <h2>Image</h2>
+    <p>
+        When viewing on small displays, the image will take up 100% width of
+        the body, and it will grow to a maximum of 480px. The aspect ratio
+        is also retained automatically.
+    </p>
+
+    <p>
+        Click <a title="Home" href="/index.html">here</a> to go to the next page.
+    </p>
+</body>
+
+</html>
