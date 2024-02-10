@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+
+    <style>
+        /******** Reset ********/
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /******** Layout ********/
+
+        #title {
+            grid-area: title;
+        }
+
+        main {
+            grid-area: content;
+        }
+
+        nav {
+            grid-area: nav;
+            visibility: hidden;
+        }
+
+        .backdrop {
+            visibility: hidden;
+        }
+
+        #contents {
+            visibility: hidden;
+        }
+
+        @media (max-width: 720px) {
+
+            #contents {
+                z-index: 100;
+                position: fixed;
+                right: 0;
+
+                padding: 1em 1em;
+                cursor: pointer;
+            }
+
+            .show-contents #contents {
+                display: none;
+            }
+
+            .show-contents .backdrop {
+                visibility: visible;
+            }
+
+            .show-contents nav {
+                z-index: 100;
+                position: fixed;
+                left: 0;
+                top: 0;
+
+                visibility: visible;
+
+                margin: 10px;
+                background-color: var(--bg-color);
+                padding: 0 2em 0 0;
+                border-radius: 5px;
+            }
+
+            nav li {
+                line-height: 1;
+            }
+
+        }
+
+        @media (min-width: 720px) {
+            body {
+                display: grid;
+                grid-template-areas:
+                    "title title"
+                    "nav content";
+                grid-template-columns: 16em 1fr;
+                align-items: first baseline;
+                gap: 4em;
+            }
+
+            main p {
+                padding-left: 4em;
+            }
+
+            main ul {
+                padding-left: 6em;
+            }
+
+            nav {
+                position: sticky;
+                top: 2px;
+
+                visibility: visible;
+            }
+        }
+
+
+        h2 {
+            z-index: 1;
+
+            position: sticky;
+            top: 0;
+
+            padding: 1rem 0;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+
+        /******** Style ********/
+
+        :root {
+            --bg-color: #fffff8;
+            --black: #111111;
+        }
+
+        html {
+            background: var(--bg-color);
+            scroll-behavior: smooth;
+        }
+
+        h2 {
+            background: var(--bg-color);
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 2em 10px;
+        }
+
+        p,
+        li {
+
+            line-height: 1.7;
+        }
+
+        .big-title {
+            font-size: 20vw;
+        }
+
+        @media (max-width: 720px) {
+            h2 {
+                font-size: 1.2em;
+                margin-left: 10px;
+            }
+
+            h3 {
+                font-size: 1em;
+                max-width: 70%;
+                line-height: 1.4;
+                margin: 2em 10px;
+            }
+
+            p,
+            li {
+                margin: 2em 10px;
+            }
+
+        }
+
+        @media (min-width: 720px) {
+            .big-title {
+                font-size: 6em;
+            }
+
+            p {
+                max-width: 80ch;
+            }
+
+            li {
+                max-width: 70ch;
+            }
+        }
+
+        .backdrop {
+            position: fixed;
+            z-index: 10;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+        }
+
+        nav a {
+            color: var(--black);
+            font-style: italic;
+            text-decoration: none;
+            /* removes the underline which is default for links */
+        }
+
+        nav .active {
+            text-decoration: underline;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            font-style: normal;
+        }
+
+        nav a:visited {
+            color: var(--black);
+        }
+
+        .fill {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 100vh;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .fill p {
+            width: 50ch;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="contents">Contents</div>
+    <nav id="nav">
+        <ol>
+            <li><a href="#Grid">Grid</a></li>
+            <li><a href="#Intersection-Observer-Api">Intersection Observer Api</a></li>
+        </ol>
+    </nav>
+    <div class="backdrop"></div>
+    <section id="title" class="fill">
+        <h1 class="big-title">JavaScript </h1>
+        <p>JavaScript (JS) is an light-weight, interpreted programming
+            language. It is primarily used in making web-sites, and it is
+            available in the browser. </p>
+    </section>
+    <main>
+        <section>
+            <h2>Foreword</h2>
+            <p>I want to use JS for interactivity, and progressive enhancement.
+                In this page, we have a nav element for navigation, where
+                the current section is highlighted using JS. </p>
+            <p>The page layout uses CSS grid. Since we're using CSS Grid to lay
+                out the children of <code>&lt;main&gt;</code>, adding
+                <code>align-self: start; </code>to <code>&lt; nav&gt;
+                </code>is an important one here. If we would omit it, the
+                nav element would be as high as the enclosing main element.
+                If that were the case, then nav would never be able to
+                stick.
+            </p>
+            <p>The code in this page is adapted from <a
+                    href="https://www.bram.us/2020/01/10/smooth-scrolling-sticky-scrollspy-navigation/">here.</a>
+                Most of the text in this page is copied from MDN. The style
+                of this page is inspired by <a href="https://clig.dev">clig.dev.</a></p>
+        </section>
+        <section id="Grid">
+            <h2>Grid</h2>
+            <p>Css grid is used for laying elements in a grid. </p>
+            <p>CSS Grid
+                Layout excels at dividing a page into major regions or
+                defining the relationship in terms of size, position, and
+                layer, between parts of a control built from HTML
+                primitives. </p>
+            <p>Like tables, grid layout enables an
+                author to align elements into columns and rows. However,
+                many more layouts are either possible or easier with CSS
+                grid than they were with tables. For example, a grid
+                container's child elements could position themselves so
+                they actually overlap and layer, similar to CSS positioned
+                elements. </p>
+            <h3>What is a grid? </h3>
+            <p>A grid is a set
+                of intersecting horizontal and vertical lines defining
+                columns and rows. Elements can be placed onto the grid
+                within these column and row lines. CSS grid layout has the
+                following features: Fixed and flexible track sizes </p>
+            <p>You can create a grid with fixed track sizes – using pixels
+                for example. This sets the grid to the specified pixel
+                which fits to the layout you desire. You can also create a
+                grid using flexible sizes with percentages or with the fr
+                unit designed for this purpose. </p>
+            <h3>Item placement
+            </h3>
+            <p>You can place items into a precise location on the
+                grid using line numbers, names or by targeting an area of
+                the grid. Grid also contains an algorithm to control the
+                placement of items not given an explicit position on the
+                grid. </p>
+            <h3>Creation of additional tracks to hold
+                content </h3>
+            <p>You can define an explicit grid with grid
+                layout. The Grid Layout specification is flexible enough to
+                add additional rows and columns when needed. Features such
+                as adding "as many columns that will fit into a container"
+                are included. </p>
+            <h3>Alignment control </h3>
+            <p>Grid
+                contains alignment features so we can control how the items
+                align once placed into a grid area, and how the entire grid
+                is aligned. </p>
+            <h3>Control of overlapping content </h3>
+            <p>More than one item can be placed into a grid cell or area
+                and they can partially overlap each other. This layering
+                may then be controlled with the z-index property. </p>
+        </section>
+
+        <section id="Intersection-Observer-Api">
+            <h2>Intersection Observer
+                API</h2>
+            <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">Intersection
+                    Observer Api</a> is a web API which provides a way to
+                asynchronously observe changes in the intersection of a
+                target element with an ancestor element or with a top-level
+                document's viewport. </p>
+            <p>Historically, detecting
+                visibility of an element, or the relative visibility of two
+                elements in relation to each other, has been a difficult
+                task for which solutions have been unreliable and prone to
+                causing the browser and the sites the user is accessing to
+                become sluggish. As the web has matured, the need for this
+                kind of information has grown. Intersection information is
+                needed for many reasons, such as: </p>
+            <ul>
+                <li>Lazy-loading of images or other content as a page is
+                    scrolled. </li>
+                <li>Implementing "infinite scrolling"
+                    web sites, where more and more content is loaded and
+                    rendered as you scroll, so that the user doesn't have
+                    to flip through pages. </li>
+                <li>Reporting of
+                    visibility of advertisements in order to calculate ad
+                    revenues. </li>
+                <li>Deciding whether or not to perform
+                    tasks or animation processes based on whether or not
+                    the user will see the result. </li>
+            </ul>
+            <p>Implementing intersection detection in the past involved
+                event handlers and loops calling methods like
+                Element.getBoundingClientRect() to build up the needed
+                information for every element affected. Since all this code
+                runs on the main thread, even one of these can cause
+                performance problems. When a site is loaded with these
+                tests, things can get downright ugly. </p>
+            <p>Consider a
+                web page that uses infinite scrolling. It uses a
+                vendor-provided library to manage the advertisements placed
+                periodically throughout the page, has animated graphics
+                here and there, and uses a custom library that draws
+                notification boxes and the like. Each of these has its own
+                intersection detection routines, all running on the main
+                thread. The author of the web site may not even realize
+                this is happening, since they may know very little about
+                the inner workings of the two libraries they are using. As
+                the user scrolls the page, these intersection detection
+                routines are firing constantly during the scroll handling
+                code, resulting in an experience that leaves the user
+                frustrated with the browser, the web site, and their
+                computer. </p>
+            <p>The Intersection Observer API lets code
+                register a callback function that is executed whenever an
+                element they wish to monitor enters or exits another
+                element (or the viewport), or when the amount by which the
+                two intersect changes by a requested amount. This way,
+                sites no longer need to do anything on the main thread to
+                watch for this kind of element intersection, and the
+                browser is free to optimize the management of intersections
+                as it sees fit. </p>
+            <p>One thing the Intersection Observer
+                API can't tell you: the exact number of pixels that overlap
+                or specifically which ones they are; however, it covers the
+                much more common use case of "If they intersect by
+                somewhere around N%, I need to do something." </p>
+        </section>
+        <p>Click <a title="Home" href="./index.html">here</a> to
+            go to the next page. </p>
+    </main>
+    <script>
+        function check_add_visible_class(entry) {
+
+            let id = entry.target.getAttribute('id');
+            let link = document.querySelector(`nav a[href="#${id}"]`);
+
+            if (link) {
+                if (entry.intersectionRatio > 0) {
+                    link.classList.add('visible');
+                }
+
+                else {
+                    link.classList.remove('visible');
+                }
+            }
+
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(check_add_visible_class);
+                document.querySelectorAll("nav a").forEach(link => {
+                    link.classList.remove('active')
+                });
+                let firstVisibleLink = document.querySelector('nav a.visible');
+
+                if (firstVisibleLink) {
+                    firstVisibleLink.classList.add('active');
+                }
+
+            });
+
+            // Track all sections that have an `id` applied
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
+            });
+        });
+
+
+
+        let contents = document.querySelector("#contents");
+        // I'm setting contents to visible in JavaScript.
+        // If you turn Javascript off, you won't be able
+        // to use contents on mobile. 
+        // This is for progressive enhancement, as I 
+        // don't want the contents div hanging over the text
+        // without doing anything. :)
+        // TODO: layout contents and nav in css, so that 
+        // the flow makes sense even without JS.
+
+        let media_query = window.matchMedia("(max-width: 720px)");
+        function show_contents(mql) {
+            if (mql.matches) {
+                contents.style.visibility = "visible";
+            }
+        }
+        show_contents(media_query);
+        media_query.addEventListener("change", show_contents);
+
+
+        let backdrop = document.querySelector('.backdrop');
+        let nav = document.querySelector('nav');
+
+        contents.addEventListener("click", () => {
+            document.body.classList.add("show-contents");
+        });
+        backdrop.addEventListener("click", () => {
+            document.body.classList.remove("show-contents");
+        });
+
+        nav.addEventListener("click", () => {
+            document.body.classList.remove("show-contents");
+        });
+
+        document.body.addEventListener('keyup', (e) => {
+            if (e.key == "Escape") {
+                document.body.classList.remove("show-contents");
+            }
+        });
+    </script>
+</body>
+
+</html>
