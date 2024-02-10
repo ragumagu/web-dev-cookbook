@@ -40,6 +40,7 @@
                 z-index: 100;
                 position: fixed;
                 right: 0;
+                top: 0.2em;
 
                 padding: 1em 1em;
                 cursor: pointer;
@@ -94,7 +95,7 @@
 
             nav {
                 position: sticky;
-                top: 2px;
+                top: 1em;
 
                 visibility: visible;
             }
@@ -218,13 +219,20 @@
         }
 
         .fill p {
-            width: 50ch;
+            width: min(48ch, 300px);
         }
     </style>
 
 </head>
 
 <body>
+    <section id="title" class="fill">
+        <h1 class="big-title">JavaScript </h1>
+        <p>JavaScript (JS) is an light-weight, interpreted programming
+            language. It is primarily used in making web-sites, and it is
+            available in the browser. </p>
+    </section>
+
     <div id="contents">Contents</div>
     <nav id="nav">
         <ol>
@@ -233,12 +241,6 @@
         </ol>
     </nav>
     <div class="backdrop"></div>
-    <section id="title" class="fill">
-        <h1 class="big-title">JavaScript </h1>
-        <p>JavaScript (JS) is an light-weight, interpreted programming
-            language. It is primarily used in making web-sites, and it is
-            available in the browser. </p>
-    </section>
     <main>
         <section>
             <h2>Foreword</h2>
