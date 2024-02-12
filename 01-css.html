@@ -4,13 +4,34 @@
 <head>
     <title>CSS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content = "dark light" />
+
     <style>
+        :root {
+            --bg-color: #fffff8;
+            --text-color: #111;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a2535;
+                --text-color: #ddd;
+            }
+        }
+
+        /* Inherit color, otherwise, links will be blue in dark mode */
+        a:link,
+        a:visited {
+            color: inherit;
+        }
+
         html {
             display: flex;
             flex-direction: column;
             align-items: center;
 
-            background: #fffff8;
+            background: var(--bg-color);
+            color: var(--text-color);
             font-size: large;
         }
 
@@ -20,7 +41,7 @@
         }
 
         h1,
-        img,
+        picture,
         p {
             align-self: center;
         }
@@ -39,7 +60,6 @@
             width: 100%;
             max-width: 480px;
         }
-
     </style>
 </head>
 
@@ -47,7 +67,15 @@
     <h1>
         CSS
     </h1>
-    <img title="Roses in a vase." alt="Images of roses in a vase." src="rose.jpg" width="240px">
+
+    <picture>
+        <source srcset="leaf.jpg" media="(prefers-color-scheme: light)" />
+        <source srcset="rose.jpg" media="(prefers-color-scheme: dark)" />
+        <img src="leaf.jpg"
+            title="You will see a picture of a leaf or a vase of roses depending on light-mode or dark-mode."
+            alt="A soothing picture to remind you to breathe deeply." width=320 />
+    </picture>
+
     <p>
         CSS is Cascading Style Sheets.
     </p>
@@ -69,9 +97,9 @@
         programming is deceptively hard, and it seems easier at first.
         When writing CSS, I ask:
     <pre>
-        When something works: 
+        When something works:
             Why is it working?
-        When something doesn't work: 
+        When something doesn't work:
             Why would it work? </pre>
     </p>
 
