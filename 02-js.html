@@ -4,14 +4,38 @@
 <head>
     <title>JavaScript</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset='utf-8'>
+    <meta name="color-scheme" content = "dark light" />
+
     <style>
         /******** Reset ********/
         * {
             margin: 0;
             box-sizing: border-box;
         }
+        /******** Dark mode ********/
+
+        :root {
+            --bg-color: #fffff8;
+            --text-color: #111;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a2535;
+                --text-color: #ddd;
+            }
+        }
+
+        /* Inherit color, otherwise, links will be blue in dark mode */
+        a:link,
+        a:visited {
+            color: inherit;
+        }
+
 
         /******** Layout ********/
+
 
         #title {
             grid-area: title;
@@ -27,88 +51,42 @@
         }
 
         .backdrop {
+            grid-area: spacer;
             visibility: hidden;
         }
+
 
         #contents {
-            visibility: hidden;
-        }
-
-        @media (max-width: 720px) {
-
-            #contents {
-                z-index: 100;
-                position: fixed;
-                right: 0;
-                top: 0.2em;
-
-                padding: 1em 1em;
-                cursor: pointer;
-            }
-
-            .show-contents #contents {
-                display: none;
-            }
-
-            .show-contents .backdrop {
-                visibility: visible;
-            }
-
-            .show-contents nav {
-                z-index: 100;
-                position: fixed;
-                left: 0;
-                top: 0;
-
-                visibility: visible;
-
-                margin: 10px;
-                background-color: var(--bg-color);
-                padding: 0 2em 0 0;
-                border-radius: 5px;
-            }
-
-            nav li {
-                line-height: 1;
-            }
-
-        }
-
-        @media (min-width: 720px) {
-            body {
-                display: grid;
-                grid-template-areas:
-                    "title title"
-                    "nav content";
-                grid-template-columns: 16em 1fr;
-                align-items: first baseline;
-                gap: 4em;
-            }
-
-            main p {
-                padding-left: 4em;
-            }
-
-            main ul {
-                padding-left: 6em;
-            }
-
-            nav {
-                position: sticky;
-                top: 1em;
-
-                visibility: visible;
-            }
-        }
-
-
-        h2 {
-            z-index: 1;
-
-            position: sticky;
+            z-index: 100;
+            position: fixed;
+            right: 0;
             top: 0;
 
-            padding: 1rem 0;
+            padding: 0.6em 1em;
+            cursor: pointer;
+        }
+
+        .show-contents #contents {
+            display: none;
+        }
+
+        .show-contents .backdrop {
+            visibility: visible;
+        }
+
+        .show-contents nav {
+            z-index: 100;
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            visibility: visible;
+
+            margin: 10px;
+            padding: 0 2em 0 0;
+
+            background-color: var(--bg-color);
+            border-radius: 5px;
         }
 
         section {
@@ -116,82 +94,103 @@
         }
 
 
-        /******** Style ********/
-
-        :root {
-            --bg-color: #fffff8;
-            --black: #111111;
+        .fill {
+            display: grid;
+            grid-template-rows: 1fr auto;
+            height: 90vh;
+            place-items: center;
         }
 
-        html {
-            background: var(--bg-color);
-            scroll-behavior: smooth;
+        .fill p {
+            width: min(100%, 50ch);
+            text-align: center;
         }
 
         h2 {
+            z-index: 1;
+
+            position: sticky;
+            top: 0;
+
+            padding: 1rem 8px;
             background: var(--bg-color);
+
             line-height: 1.2;
-        }
-
-        p {
-            margin: 2em 10px;
-        }
-
-        p,
-        li {
-
-            line-height: 1.7;
-        }
-
-        .big-title {
-            font-size: 20vw;
-        }
-
-        @media (max-width: 720px) {
-            h2 {
-                font-size: 1.2em;
-                margin-left: 10px;
-            }
-
-            h3 {
-                font-size: 1em;
-                max-width: 70%;
-                line-height: 1.4;
-                margin: 2em 10px;
-            }
-
-            p,
-            li {
-                margin: 2em 10px;
-            }
-
-        }
-
-        @media (min-width: 720px) {
-            .big-title {
-                font-size: 6em;
-            }
-
-            p {
-                max-width: 80ch;
-            }
-
-            li {
-                max-width: 70ch;
-            }
+            font-size: 1.2em;
         }
 
         .backdrop {
             position: fixed;
             z-index: 10;
             inset: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(1, 1, 1, 0.5);
             backdrop-filter: blur(4px);
             cursor: pointer;
         }
 
+        p, h2, h3 {
+            padding: 8px;
+        }
+
+        h3 {
+            font-size: 1em;
+        }
+
+        p {
+            margin: 2em 0;
+        }
+
+        p,
+        li {
+            line-height: 1.7;
+        }
+
+        .big-title {
+            font-size: min(18vw, 6em);
+            padding: 8px;
+        }
+
+        @media (width > 100ch) {
+            body {
+                display: grid;
+                grid-template-areas: ". title ." "nav content spacer";
+                grid-template-columns: 1fr fit-content(60ch) 1fr;
+                align-items: first baseline;
+                gap: 1em;
+            }
+
+            nav {
+                position: sticky;
+                top: 0;
+
+                height: 100vh;
+                max-width: 50ch;
+
+                display: flex;
+                margin-left: auto;
+                padding: 10px;
+
+                visibility: visible;
+
+                font-size: 0.8em;
+
+                overscroll-behavior: contain;
+            }
+
+        }
+
+        /******** Style ********/
+
+        html {
+            font-size: clamp(1rem, 0.6rem + 1.1vw, 2rem);
+            background: var(--bg-color);
+            color: var(--text-color);
+
+            scroll-behavior: smooth;
+        }
+
         nav a {
-            color: var(--black);
+            color: var(--text-color);
             font-style: italic;
             text-decoration: none;
             /* removes the underline which is default for links */
@@ -207,22 +206,10 @@
         }
 
         nav a:visited {
-            color: var(--black);
+            color: var(--text-color);
         }
 
-        .fill {
-            display: grid;
-            grid-template-rows: 1fr auto;
-            height: 90vh;
-            align-items: center;
-            justify-items: center;
-        }
-
-        .fill p {
-            width: min(48ch, 300px);
-        }
     </style>
-
 </head>
 
 <body>
@@ -432,10 +419,12 @@
         // TODO: layout contents and nav in css, so that 
         // the flow makes sense even without JS.
 
-        let media_query = window.matchMedia("(max-width: 720px)");
+        let media_query = window.matchMedia("(max-width: 100ch)");
         function show_contents(mql) {
             if (mql.matches) {
                 contents.style.visibility = "visible";
+            } else {
+                contents.style.visibility = "hidden";
             }
         }
         show_contents(media_query);
@@ -462,6 +451,6 @@
             }
         });
     </script>
-</body>
 
+</body>
 </html>
