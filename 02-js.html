@@ -5,7 +5,7 @@
     <title>JavaScript</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset='utf-8'>
-    <meta name="color-scheme" content = "dark light" />
+    <meta name="color-scheme" content="dark light" />
 
     <style>
         /******** Reset ********/
@@ -13,6 +13,7 @@
             margin: 0;
             box-sizing: border-box;
         }
+
         /******** Dark mode ********/
 
         :root {
@@ -128,7 +129,9 @@
             cursor: pointer;
         }
 
-        p, h2, h3 {
+        p,
+        h2,
+        h3 {
             padding: 8px;
         }
 
@@ -180,13 +183,31 @@
         }
 
         /******** Style ********/
+        @font-face {
+            font-family: 'EB-Garamond';
+            src: url('fonts/EB_Garamond/EBGaramond-VariableFont_wght.FontimizeSubset.woff2') format('woff2');
+        }
+
+        @font-face {
+            font-family: 'Code';
+            src: url('fonts/Cutive_Mono/CutiveMono-Regular.FontimizeSubset.woff2') format('woff2');
+        }
 
         html {
             font-size: clamp(1rem, 0.6rem + 1.1vw, 2rem);
+            font-family: "EB-Garamond", serif;
             background: var(--bg-color);
             color: var(--text-color);
 
             scroll-behavior: smooth;
+        }
+
+        code {
+            font-family: code, monospace;
+        }
+
+        p {
+            word-spacing: 0.12em;
         }
 
         nav a {
@@ -208,7 +229,6 @@
         nav a:visited {
             color: var(--text-color);
         }
-
     </style>
 </head>
 
@@ -236,8 +256,8 @@
                 the current section is highlighted using JS. </p>
             <p>The page layout uses CSS grid. Since we're using CSS Grid to lay
                 out the children of <code>&lt;main&gt;</code>, adding
-                <code>align-self: start; </code>to <code>&lt; nav&gt;
-                </code>is an important one here. If we would omit it, the
+                <code>align-self: start;</code> to <code>&lt;nav&gt;</code> 
+                    is an important one here. If we would omit it, the
                 nav element would be as high as the enclosing main element.
                 If that were the case, then nav would never be able to
                 stick.
@@ -246,6 +266,12 @@
                     href="https://www.bram.us/2020/01/10/smooth-scrolling-sticky-scrollspy-navigation/">here.</a>
                 Most of the text in this page is copied from MDN. The style
                 of this page is inspired by <a href="https://clig.dev">clig.dev.</a></p>
+                <p>I've also used David Millington's website as a reference for the
+                    fonts on this page. His <a href="https://daveon.design/introducing-fontimize-subset-fonts-to-exactly-and-only-your-websites-used-characters.html">
+                    Fontimize</a> python package is very useful and I've used it
+                    to make a subset font reducing the font files from about 1mB to
+                    about 28 kB.
+                </p>
         </section>
         <section id="Grid">
             <h2>Grid</h2>
@@ -285,7 +311,7 @@
             <p>You can define an explicit grid with grid
                 layout. The Grid Layout specification is flexible enough to
                 add additional rows and columns when needed. Features such
-                as adding "as many columns that will fit into a container"
+                as adding <q>as many columns that will fit into a container</q>
                 are included. </p>
             <h3>Alignment control </h3>
             <p>Grid
@@ -317,7 +343,7 @@
             <ul>
                 <li>Lazy-loading of images or other content as a page is
                     scrolled. </li>
-                <li>Implementing "infinite scrolling"
+                <li>Implementing <q>infinite scrolling</q>
                     web sites, where more and more content is loaded and
                     rendered as you scroll, so that the user doesn't have
                     to flip through pages. </li>
@@ -362,8 +388,8 @@
             <p>One thing the Intersection Observer
                 API can't tell you: the exact number of pixels that overlap
                 or specifically which ones they are; however, it covers the
-                much more common use case of "If they intersect by
-                somewhere around N%, I need to do something." </p>
+                much more common use case of <q>If they intersect by somewhere
+                around N%, I need to do something.</q> </p>
         </section>
         <p>Click <a title="Home" href="./index.html">here</a> to
             go to the next page. </p>
@@ -453,4 +479,5 @@
     </script>
 
 </body>
+
 </html>
